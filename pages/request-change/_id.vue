@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- {{dataForm[0]}} -->
     <table class="table is-bordered is-fullwidth mt-6 mb-6">
       <thead>
         <tr>
@@ -163,7 +162,17 @@
           <th colspan=13> 12. Impacted Area (HUB, Node, Building, BDF, Corporate Customer, Axis/NTS Links) </th>
         </tr>
         <tr>
-          <th colspan=13> .. </th>
+          <th colspan=13> 
+            <div class="columns is-multiline">
+              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
+                <div class="card">
+                  <div class="card-content" style="padding:10px;">
+                  <p>{{item.lnkt_name}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
         </tr>
         <tr class="has-background-lightbrown">
           <th colspan=13> CHANGE DATE & TIME </th>
@@ -177,9 +186,9 @@
           <th colspan=5 class="has-background-lightblue"> 15. Justification for unstandard time</th>
         </tr>
         <tr>
-          <th colspan=5> .. </th>
-          <th colspan=3> .. </th>
-          <th colspan=5> ..</th>
+          <th colspan=5> {{dataForm.lnkt_targetclosed}} </th>
+          <th colspan=3> {{dataForm.lnkt_targetclosed}} </th>
+          <th colspan=5> {{dataForm.lnkt_justification}}</th>
         </tr>
         <tr class="has-background-lightblue">
           <th colspan=13> 16. Requestor Checklist</th>
@@ -251,9 +260,9 @@
           <th colspan=5> 20. Approved by:(Division Head / Director)</th>
         </tr>
         <tr>
-          <th colspan=4> .. </th>
-          <th colspan=4> .. </th>
-          <th colspan=5> .. </th>
+          <th colspan=4> {{dataForm.lnkt_requestbyid}} </th>
+          <th colspan=4> {{dataForm.lnkt_1stapprovalid}} </th>
+          <th colspan=5> {{dataForm.lnkt_2ndapprovalid}} </th>
         </tr>
         <tr>
           <th colspan=1> Name: </th>
@@ -265,11 +274,11 @@
         </tr>
         <tr>
           <th colspan=1> Date: </th>
-          <th colspan=3> </th>
+          <th colspan=3> {{dataForm.lnkt_requestdate}}</th>
+          <th colspan=1> Date:  </th>
+          <th colspan=3> {{dataForm.lnkt_1stapproveddate}}</th>
           <th colspan=1> Date: </th>
-          <th colspan=3> </th>
-          <th colspan=1> Date: </th>
-          <th colspan=4> </th>
+          <th colspan=4> {{dataForm.lnkt_2ndapproveddate}}</th>
         </tr>
 
         <tr class="has-background-lightbrown">
@@ -296,45 +305,6 @@
 </template>
 
 
-
-<script>
-  export default {
-
-    data() {
-      return {
-
-        // dataForm: {},
-        x: ''
-
-
-      }
-    },
-    mounted() {
-      this.getDataForm()
-
-    },
-    methods: {
-      async getDataForm() {
-        try {
-          await this.$axios.get(
-              "http://202.77.101.91:6161/Service1.svc/RCFForReport/ffeec09c-5cfe-4587-ad9a-567bfb0125c5")
-            .then(async res => {
-              let dataForm = await res.data[0]
-              this.x = dataForm.lnkt_department
-              // console.log('Data log', this.dataChart)
-            })
-        } catch (error) {
-          console.log(error)
-        }
-      },
-
-
-    }
-  }
-
-</script>
-
-
 <script>
   export default {
 
@@ -355,7 +325,7 @@
         console.log('get data')
         try {
           await this.$axios.get(
-              "http://202.77.101.91:6161/Service1.svc/RCFForReport/ffeec09c-5cfe-4587-ad9a-567bfb0125c5")
+              `http://202.77.101.91:6161/Service1.svc/RCFForReport/${this.$route.params.id}`)
             .then(async res => {
               let rawDataForm = await res.data
               this.dataForm = rawDataForm[0]
