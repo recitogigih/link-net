@@ -37,15 +37,7 @@
           <th> {{dataForm.lnkt_requestdate}} </th>
           <th colspan=2>
             {{dataForm.lnkt_changecategory}} <br>
-            <label class="checkbox">
-              <input type="checkbox">
-              Normal
-            </label>
-            <br>
-            <label class="checkbox">
-              <input type="checkbox">
-              Emergency
-            </label>
+           
           </th>
         </tr>
         <tr class="has-background-lightblue">
@@ -246,12 +238,12 @@
           <th colspan=4> Authorization Level </th>
         </tr>
         <tr>
-          <th colspan=9> .. </th>
-          <th colspan=4> .. </th>
+          <th colspan=9> Less than 50 nodes. </th>
+          <th colspan=4> Division Head  </th>
         </tr>
         <tr>
-          <th colspan=9> .. </th>
-          <th colspan=4> .. </th>
+          <th colspan=9> 1 or more HUB, FastNet Products, TV Channels, Stock Exchange Members, Axis, more than 1 BDF, more than 50 nodes, Apartments, unstandard time.</th>
+          <th colspan=4> Director </th>
         </tr>
         <tr class="has-background-lightblue">
 
@@ -260,17 +252,17 @@
           <th colspan=5> 20. Approved by:(Division Head / Director)</th>
         </tr>
         <tr>
-          <th colspan=4> {{dataForm.lnkt_requestbyid}} </th>
-          <th colspan=4> {{dataForm.lnkt_1stapprovalid}} </th>
-          <th colspan=5> {{dataForm.lnkt_2ndapprovalid}} </th>
+          <th colspan=4> <br><br> </th>
+          <th colspan=4> <br><br> </th>
+          <th colspan=5> <br><br> </th>
         </tr>
         <tr>
           <th colspan=1> Name: </th>
-          <th colspan=3> </th>
+          <th colspan=3> {{dataForm.lnkt_requestbyid}}</th>
           <th colspan=1> Name: </th>
-          <th colspan=3> </th>
+          <th colspan=3> {{dataForm.lnkt_1stapprovalid}}</th>
           <th colspan=1> Name: </th>
-          <th colspan=4> </th>
+          <th colspan=4> {{dataForm.lnkt_2ndapprovalid}} </th>
         </tr>
         <tr>
           <th colspan=1> Date: </th>
