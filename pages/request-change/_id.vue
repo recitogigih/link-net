@@ -30,7 +30,7 @@
           <th colspan=2> 6. Change Category </th>
         </tr>
         <tr>
-          <th colspan=3> {{dataForm.lnkt_changecategory}} </th>
+          <th colspan=3> {{dataForm.lnkt_name}} </th>
           <th colspan=2> {{dataForm.lnkt_requestbyid}} </th>
           <th colspan=2> {{dataForm.lnkt_department}} </th>
           <th colspan=3> {{dataForm.lnkt_division}} </th>
@@ -155,6 +155,7 @@
         </tr>
         <tr>
           <th colspan=13>
+            <p  v-show="this.impactedLength > 15"> Terlampir pada akhir halaman</p>
             <div v-show="this.impactedLength < 15" class="columns is-multiline">
               <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
                 <div class="card">
@@ -178,8 +179,8 @@
           <th colspan=5 class="has-background-lightblue"> 15. Justification for unstandard time</th>
         </tr>
         <tr>
-          <th colspan=5> {{dataForm.lnkt_targetclosed}} </th>
-          <th colspan=3> {{dataForm.lnkt_targetclosed}} </th>
+          <th colspan=5> {{dataForm.lnkt_proposeddate}} </th>
+          <th colspan=3> {{dataForm.lnkt_proposedtime}} </th>
           <th colspan=5> {{dataForm.lnkt_justification}}</th>
         </tr>
         <tr class="has-background-lightblue">
@@ -295,7 +296,6 @@
 
     <div v-show="this.impactedLength > 15" class="pagebreak">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
-
         <tr>
           <td>
             <p class="mb-3"> Impacted area attachment </p>
