@@ -162,12 +162,12 @@
           <th colspan=13> 12. Impacted Area (HUB, Node, Building, BDF, Corporate Customer, Axis/NTS Links) </th>
         </tr>
         <tr>
-          <th colspan=13> 
-            <div class="columns is-multiline">
+          <th colspan=13>
+            <div v-show="this.impactedLength < 15" class="columns is-multiline">
               <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
-                  <p>{{item.lnkt_name}}</p>
+                    <p>{{item.lnkt_name}}</p>
                   </div>
                 </div>
               </div>
@@ -232,11 +232,11 @@
           <th colspan=4> Mobile Phone</th>
           <th colspan=4> Email</th>
         </tr>
-        <tr>
-          <th colspan=1> .. </th>
-          <th colspan=4> .. </th>
-          <th colspan=4> ..</th>
-          <th colspan=4> ..</th>
+        <tr v-for="item,index in dataForm.lnkt_pic" :key="index">
+          <th colspan=1> {{index+1}} </th>
+          <th colspan=4> {{item.lnkt_name}} </th>
+          <th colspan=4> {{item.lnkt_phonenumber}}</th>
+          <th colspan=4> {{item.emailaddress}}</th>
         </tr>
         <tr class="has-background-lightbrown">
           <th colspan=13> AUTHORIZATION </th>
@@ -275,7 +275,7 @@
         <tr>
           <th colspan=1> Date: </th>
           <th colspan=3> {{dataForm.lnkt_requestdate}}</th>
-          <th colspan=1> Date:  </th>
+          <th colspan=1> Date: </th>
           <th colspan=3> {{dataForm.lnkt_1stapproveddate}}</th>
           <th colspan=1> Date: </th>
           <th colspan=4> {{dataForm.lnkt_2ndapproveddate}}</th>
@@ -285,21 +285,42 @@
           <th colspan=13> VERIFICATION (to be filled by NOC) </th>
         </tr>
         <tr class="has-background-lightblue">
-          <th colspan=4> 21. Completion Date & Time </th>
+          <th colspan=4>21. Completion Date & Time </th>
           <th colspan=4>22. Verification Remarks</th>
-          <th colspan=5> 23. Acknowledge (NOC Spv.)</th>
+          <th colspan=5>23. Acknowledge (NOC Spv.)</th>
         </tr>
 
         <tr class="">
-          <th colspan=4>.. </th>
-          <th colspan=4>..</th>
-          <th colspan=5>..</th>
+          <th colspan=4>{{dataForm.lnkt_validationdate}} </th>
+          <th colspan=4>{{dataForm.lnkt_troubleticketid}}</th>
+          <th colspan=5>{{dataForm.lnkt_validationby}}</th>
         </tr>
 
 
 
       </tbody>
     </table>
+
+    <div v-show="this.impactedLength > 15" class="pagebreak">
+      <table class="table is-bordered is-fullwidth mt-6 mb-6">
+
+        <tr>
+          <td>
+            <p class="mb-3"> Impacted area attachment </p>
+            <div class="columns is-multiline">
+              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
+                <div class="card">
+                  <div class="card-content" style="padding:10px;">
+                    <p>{{item.lnkt_name}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    </div>
   </div>
 
 </template>
@@ -329,6 +350,7 @@
             .then(async res => {
               let rawDataForm = await res.data
               this.dataForm = rawDataForm[0]
+              this.impactedLength = rawDataForm[0].getAllImpactedItem.length
               // this.x = dataForm.lnkt_department
               // console.log('Data log', this.dataChart)
             })
@@ -359,6 +381,15 @@
     padding: 0.5em 0.75em;
     vertical-align: top;
     font-size: 12px;
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
+
+    /* page-break-after works, as well */
+
   }
 
 </style>
