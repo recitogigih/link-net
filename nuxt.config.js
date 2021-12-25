@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'form',
+    title: 'RCF form',
     htmlAttrs: {
       lang: 'en'
     },

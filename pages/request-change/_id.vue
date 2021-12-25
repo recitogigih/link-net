@@ -7,7 +7,6 @@
           <th colspan=4 class="has-text-info">Improvement</th>
           <th colspan=3 class="has-background-lightblue">Type</th>
           <th colspan=3 class="has-text-info">Activation</th>
-
         </tr>
       </thead>
       <tbody>
@@ -37,7 +36,7 @@
           <th> {{dataForm.lnkt_requestdate}} </th>
           <th colspan=2>
             {{dataForm.lnkt_changecategory}} <br>
-           
+
           </th>
         </tr>
         <tr class="has-background-lightblue">
@@ -60,7 +59,7 @@
         <tr>
           <th colspan=9>
             <label class="checkbox">
-              <input type="checkbox">
+              <input v-model="this.noCustImpact" type="checkbox">
               No Customer Impact
             </label>
           </th>
@@ -76,7 +75,13 @@
               Fastnet Packages :
             </label>
           </th>
-          <th colspan=5> .. </th>
+          <th colspan=5>
+            <div class="content">
+              <ul>
+                <li v-for="item, index in dataForm.lnkt_fastnetItem" :key="index"> {{item.lnkt_name}}</li>
+              </ul>
+            </div>
+          </th>
 
 
           <th colspan=4> <label class="checkbox">
@@ -91,7 +96,7 @@
               Home Cable :
             </label>
           </th>
-          <th colspan=5> .. </th>
+          <th colspan=5>  </th>
           <th colspan=4> <label class="checkbox">
               <input v-model="dataForm.lnkt_vod" type="checkbox">
               VOD
@@ -105,41 +110,47 @@
             </label> <br>
 
           </th>
-          <th colspan=5> .. </th>
+          <th rowspan=2 colspan=5>
+            <div class="content">
+              <ul>
+                <li v-for="item, index in dataForm.lnkt_tvchannelItem" :key="index"> {{item.lnkt_name}}</li>
+              </ul>
+            </div>
+          </th>
           <th colspan=4> <label class="checkbox">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_mailservices" type="checkbox">
               Mail / SMTP Services
             </label> </th>
         </tr>
         <tr>
           <th colspan="1"> <label class="checkbox ml-6">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_analog" type="checkbox">
               Analog
             </label></th>
           <th colspan="1">
             <label class="checkbox  ml-2">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_digital" type="checkbox">
               Digital
             </label>
           </th>
           <th colspan="1">
 
             <label class="checkbox  ml-2">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_sd" type="checkbox">
               SD
             </label>
           </th>
           <th colspan="1">
 
             <label class="checkbox  ml-2">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_hd" type="checkbox">
               HD
             </label>
           </th>
-          <th colspan="5">..</th>
+      
           <th colspan="4">
             <label class="checkbox">
-              <input type="checkbox">
+              <input v-model="dataForm.lnkt_otherproduct" type="checkbox">
               Others: All Fastnet Internet service
             </label>
           </th>
@@ -155,12 +166,17 @@
         </tr>
         <tr>
           <th colspan=13>
-            <p  v-show="this.impactedLength > 15"> Terlampir pada akhir halaman</p>
-            <div v-show="this.impactedLength < 15" class="columns is-multiline">
-              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
+            <p v-show="this.impactedLength > 4"> *Terlampir pada attachment</p>
+            <div v-show="this.impactedLength < 4" class="columns is-multiline">
+              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
-                    <p>{{item.lnkt_name}}</p>
+                    <div class="content">
+                      <p>Type : {{item.lnkt_impacttype}}</p>
+                      <ul>
+                        <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -225,7 +241,10 @@
           <th colspan=4> Mobile Phone</th>
           <th colspan=4> Email</th>
         </tr>
-        <tr v-for="item,index in dataForm.lnkt_pic" :key="index">
+        <tr v-show="picLength  > 4">
+          <td colspan="13">*Terlampir pada attachment</td>
+        </tr>
+        <tr v-show="picLength  < 4" v-for="item,index in dataForm.lnkt_pic" :key="index">
           <th colspan=1> {{index+1}} </th>
           <th colspan=4> {{item.lnkt_name}} </th>
           <th colspan=4> {{item.lnkt_phonenumber}}</th>
@@ -240,10 +259,11 @@
         </tr>
         <tr>
           <th colspan=9> Less than 50 nodes. </th>
-          <th colspan=4> Division Head  </th>
+          <th colspan=4> Division Head </th>
         </tr>
         <tr>
-          <th colspan=9> 1 or more HUB, FastNet Products, TV Channels, Stock Exchange Members, Axis, more than 1 BDF, more than 50 nodes, Apartments, unstandard time.</th>
+          <th colspan=9> 1 or more HUB, FastNet Products, TV Channels, Stock Exchange Members, Axis, more than 1 BDF,
+            more than 50 nodes, Apartments, unstandard time.</th>
           <th colspan=4> Director </th>
         </tr>
         <tr class="has-background-lightblue">
@@ -294,24 +314,55 @@
       </tbody>
     </table>
 
-    <div v-show="this.impactedLength > 15" class="pagebreak">
+    <div v-show="this.impactedLength > 4" class="pagebreak">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
+         <tr >
+          <td colspan=10>
+            <p class="mb-3"> *Impacted area attachment</p>
+          </td>
+        </tr>
         <tr>
           <td>
-            <p class="mb-3"> Impacted area attachment </p>
             <div class="columns is-multiline">
-              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-3">
+                  <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
-                    <p>{{item.lnkt_name}}</p>
+                    <div class="content">
+                      <p>Type : {{item.lnkt_impacttype}}</p>
+                      <ul>
+                        <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
+          
             </div>
           </td>
         </tr>
       </table>
+    </div>
 
+        <div v-show="this.picLength > 5" class="pagebreak">
+      <table class="table is-bordered is-fullwidth mt-6 mb-6">
+        <tr >
+          <td colspan=10>
+            <p class="mb-3"> *Person In Charge for Change Activity attachment </p>
+          </td>
+        </tr>
+          <tr>
+          <th colspan=1> No </th>
+          <th colspan=4> Name </th>
+          <th colspan=4> Mobile Phone</th>
+          <th colspan=4> Email</th>
+        </tr>
+           <tr v-show="picLength  > 4" v-for="item,index in dataForm.lnkt_pic" :key="index">
+          <th colspan=1> {{index+1}} </th>
+          <th colspan=4> {{item.lnkt_name}} </th>
+          <th colspan=4> {{item.lnkt_phonenumber}}</th>
+          <th colspan=4> {{item.emailaddress}}</th>
+        </tr>
+      </table>
     </div>
   </div>
 
@@ -320,18 +371,16 @@
 
 <script>
   export default {
-
     data() {
       return {
-
-        dataForm: ''
-
-
+        dataForm: '',
+        impactedLength:'',
+        picLength: '',
+        noCustImpact:'',
       }
     },
-    mounted() {
-      this.getDataForm()
-
+    async mounted() {
+      await this.getDataForm()
     },
     methods: {
       async getDataForm() {
@@ -341,17 +390,25 @@
               `http://202.77.101.91:6161/Service1.svc/RCFForReport/${this.$route.params.id}`)
             .then(async res => {
               let rawDataForm = await res.data
-              this.dataForm = rawDataForm[0]
-              this.impactedLength = rawDataForm[0].getAllImpactedItem.length
-              // this.x = dataForm.lnkt_department
-              // console.log('Data log', this.dataChart)
+              this.dataForm = await rawDataForm[0]
+              this.impactedLength = await rawDataForm[0].getAllImpactedItem.length
+              this.picLength =  await rawDataForm[0].lnkt_pic.length
+
+              if(this.dataForm.lnkt_fastnetpackages == false 
+              && this.dataForm.lnkt_homecable == false
+              && this.dataForm.lnkt_tvchannel == false
+              && this.dataForm.lnkt_corporateinternet == false 
+              && this.dataForm.lnkt_corporatempls == false 
+              && this.dataForm.lnkt_vod == false 
+              && this.dataForm.lnkt_mailservices == false 
+              && this.dataForm.lnkt_otherproduct == false){
+                 this.noCustImpact = true
+              }
             })
         } catch (error) {
           console.log(error)
         }
       },
-
-
     }
   }
 
