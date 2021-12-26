@@ -96,7 +96,7 @@
               Home Cable :
             </label>
           </th>
-          <th colspan=5>  </th>
+          <th colspan=5> </th>
           <th colspan=4> <label class="checkbox">
               <input v-model="dataForm.lnkt_vod" type="checkbox">
               VOD
@@ -147,7 +147,7 @@
               HD
             </label>
           </th>
-      
+
           <th colspan="4">
             <label class="checkbox">
               <input v-model="dataForm.lnkt_otherproduct" type="checkbox">
@@ -166,16 +166,17 @@
         </tr>
         <tr>
           <th colspan=13>
-            <p v-show="this.impactedLength > 4"> *Terlampir pada attachment</p>
-            <div v-show="this.impactedLength < 4" class="columns is-multiline">
+            <p :class="{hide: !this.ImpactedAttachment}"> *Terlampir pada attachment</p>
+            <div class="columns is-multiline" :class="{hide : this.ImpactedAttachment}">
               <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
                     <div class="content">
                       <p>Type : {{item.lnkt_impacttype}}</p>
-                      <ul>
+                      Impact item : ({{item.lnkt_impact_item.length}})
+                      <ol>
                         <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
-                      </ul>
+                      </ol>
                     </div>
                   </div>
                 </div>
@@ -241,10 +242,10 @@
           <th colspan=4> Mobile Phone</th>
           <th colspan=4> Email</th>
         </tr>
-        <tr v-show="picLength  > 4">
+        <tr v-show="picLength  > 5">
           <td colspan="13">*Terlampir pada attachment</td>
         </tr>
-        <tr v-show="picLength  < 4" v-for="item,index in dataForm.lnkt_pic" :key="index">
+        <tr v-show="picLength  <= 5" v-for="item,index in dataForm.lnkt_pic" :key="index">
           <th colspan=1> {{index+1}} </th>
           <th colspan=4> {{item.lnkt_name}} </th>
           <th colspan=4> {{item.lnkt_phonenumber}}</th>
@@ -314,9 +315,9 @@
       </tbody>
     </table>
 
-    <div v-show="this.impactedLength > 4" class="pagebreak">
+    <div class="pagebreak" :class="{hide: !this.ImpactedAttachment}">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
-         <tr >
+        <tr>
           <td colspan=10>
             <p class="mb-3"> *Impacted area attachment</p>
           </td>
@@ -324,11 +325,12 @@
         <tr>
           <td>
             <div class="columns is-multiline">
-                  <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
+              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
                     <div class="content">
                       <p>Type : {{item.lnkt_impacttype}}</p>
+
                       <ul>
                         <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
                       </ul>
@@ -336,27 +338,27 @@
                   </div>
                 </div>
               </div>
-          
+
             </div>
           </td>
         </tr>
       </table>
     </div>
 
-        <div v-show="this.picLength > 5" class="pagebreak">
+    <div v-show="this.picLength > 5" class="pagebreak">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
-        <tr >
+        <tr>
           <td colspan=10>
             <p class="mb-3"> *Person In Charge for Change Activity attachment </p>
           </td>
         </tr>
-          <tr>
+        <tr>
           <th colspan=1> No </th>
           <th colspan=4> Name </th>
           <th colspan=4> Mobile Phone</th>
           <th colspan=4> Email</th>
         </tr>
-           <tr v-show="picLength  > 4" v-for="item,index in dataForm.lnkt_pic" :key="index">
+        <tr v-for="item,index in dataForm.lnkt_pic" :key="index">
           <th colspan=1> {{index+1}} </th>
           <th colspan=4> {{item.lnkt_name}} </th>
           <th colspan=4> {{item.lnkt_phonenumber}}</th>
@@ -373,18 +375,21 @@
   export default {
     data() {
       return {
-        dataForm: '',
-        impactedLength:'',
+        dataForm: [],
+        impactedLength: '',
+        ImpactedDetailLength: '',
+        ImpactedAttachment: false,
         picLength: '',
-        noCustImpact:'',
+        noCustImpact: '',
       }
     },
     async mounted() {
       await this.getDataForm()
+      await this.impactedValue()
     },
     methods: {
       async getDataForm() {
-        console.log('get data')
+        // console.log('get data')
         try {
           await this.$axios.get(
               `http://202.77.101.91:6161/Service1.svc/RCFForReport/${this.$route.params.id}`)
@@ -392,23 +397,34 @@
               let rawDataForm = await res.data
               this.dataForm = await rawDataForm[0]
               this.impactedLength = await rawDataForm[0].getAllImpactedItem.length
-              this.picLength =  await rawDataForm[0].lnkt_pic.length
+              this.picLength = await rawDataForm[0].lnkt_pic.length
 
-              if(this.dataForm.lnkt_fastnetpackages == false 
-              && this.dataForm.lnkt_homecable == false
-              && this.dataForm.lnkt_tvchannel == false
-              && this.dataForm.lnkt_corporateinternet == false 
-              && this.dataForm.lnkt_corporatempls == false 
-              && this.dataForm.lnkt_vod == false 
-              && this.dataForm.lnkt_mailservices == false 
-              && this.dataForm.lnkt_otherproduct == false){
-                 this.noCustImpact = true
+              if (this.dataForm.lnkt_fastnetpackages == false &&
+                this.dataForm.lnkt_homecable == false &&
+                this.dataForm.lnkt_tvchannel == false &&
+                this.dataForm.lnkt_corporateinternet == false &&
+                this.dataForm.lnkt_corporatempls == false &&
+                this.dataForm.lnkt_vod == false &&
+                this.dataForm.lnkt_mailservices == false &&
+                this.dataForm.lnkt_otherproduct == false) {
+                this.noCustImpact = true
               }
             })
         } catch (error) {
           console.log(error)
         }
       },
+
+      async impactedValue() {
+        let arrDetailLength = []
+        let x = this.dataForm
+        x.getAllImpactedItem.map(item => {
+          arrDetailLength.push(item.lnkt_impact_item.length)
+        })
+        if (Math.max(...arrDetailLength) > 4) {
+          this.ImpactedAttachment = true
+        }
+      }
     }
   }
 
@@ -432,13 +448,14 @@
     font-size: 12px;
   }
 
+  .hide {
+    display: none !important;
+  }
+
   @media print {
     .pagebreak {
       page-break-before: always;
     }
-
-    /* page-break-after works, as well */
-
   }
 
 </style>
