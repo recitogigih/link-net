@@ -77,7 +77,8 @@
           </th>
           <th colspan=5>
             <div class="content">
-              <ul>
+              <p v-show="this.fastnetPackageLength > 3">*Terlampir pada Fastnet Package Item attachment</p>
+              <ul v-show="fastnetPackageLength <= 3 ">
                 <li v-for="item, index in dataForm.lnkt_fastnetItem" :key="index"> {{item.lnkt_name}}</li>
               </ul>
             </div>
@@ -112,7 +113,8 @@
           </th>
           <th rowspan=2 colspan=5>
             <div class="content">
-              <ul>
+              <p v-show="this.tvchannelItemLength > 3">*Terlampir pada TV Channel Item attachment</p>
+              <ul v-show="tvchannelItemLength <= 3 ">
                 <li v-for="item, index in dataForm.lnkt_tvchannelItem" :key="index"> {{item.lnkt_name}}</li>
               </ul>
             </div>
@@ -303,15 +305,11 @@
           <th colspan=4>22. Verification Remarks</th>
           <th colspan=5>23. Acknowledge (NOC Spv.)</th>
         </tr>
-
         <tr class="">
           <th colspan=4>{{dataForm.lnkt_validationdate}} </th>
           <th colspan=4>{{dataForm.lnkt_troubleticketid}}</th>
           <th colspan=5>{{dataForm.lnkt_validationby}}</th>
         </tr>
-
-
-
       </tbody>
     </table>
 
@@ -330,7 +328,6 @@
                   <div class="card-content" style="padding:10px;">
                     <div class="content">
                       <p>Type : {{item.lnkt_impacttype}}</p>
-
                       <ul>
                         <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
                       </ul>
@@ -366,6 +363,56 @@
         </tr>
       </table>
     </div>
+
+    <div v-show="this.fastnetPackageLength > 3" class="pagebreak">
+      <table class="table is-bordered is-fullwidth mt-6 mb-6">
+        <tr>
+          <td colspan=10>
+            <p class="mb-3"> *Fastnet package item attachment </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="columns is-multiline">
+              <div v-for="item, index in dataForm.lnkt_fastnetItem" :key="index" class="column is-3">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="content">
+                     {{index + 1}}. {{item.lnkt_name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+     <div v-show="this.tvchannelItemLength > 3" class="pagebreak">
+      <table class="table is-bordered is-fullwidth mt-6 mb-6">
+        <tr>
+          <td colspan=10>
+            <p class="mb-3"> *TV channel item attachment </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="columns is-multiline">
+              <div v-for="item, index in dataForm.lnkt_tvchannelItem" :key="index" class="column is-3">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="content">
+                     {{index + 1}}. {{item.lnkt_name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 
 </template>
@@ -381,6 +428,8 @@
         ImpactedAttachment: false,
         picLength: '',
         noCustImpact: '',
+        fastnetPackageLength: '',
+        tvchannelItemLength:''
       }
     },
     async mounted() {
@@ -398,6 +447,8 @@
               this.dataForm = await rawDataForm[0]
               this.impactedLength = await rawDataForm[0].getAllImpactedItem.length
               this.picLength = await rawDataForm[0].lnkt_pic.length
+              this.fastnetPackageLength = await rawDataForm[0].lnkt_fastnetItem.length
+              this.tvchannelItemLength = await rawDataForm[0].lnkt_tvchannelItem.length
 
               if (this.dataForm.lnkt_fastnetpackages == false &&
                 this.dataForm.lnkt_homecable == false &&
@@ -456,6 +507,8 @@
     .pagebreak {
       page-break-before: always;
     }
+
+ 
   }
 
 </style>
