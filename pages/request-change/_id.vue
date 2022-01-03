@@ -244,10 +244,10 @@
           <th colspan=4> Mobile Phone</th>
           <th colspan=4> Email</th>
         </tr>
-        <tr v-show="picLength  > 5">
+        <tr v-show="picLength  > 3">
           <td colspan="13">*Terlampir pada attachment</td>
         </tr>
-        <tr v-show="picLength  <= 5" v-for="item,index in dataForm.lnkt_pic" :key="index">
+        <tr v-show="picLength  <= 3" v-for="item,index in dataForm.lnkt_pic" :key="index">
           <th colspan=1> {{index+1}} </th>
           <th colspan=4> {{item.lnkt_name}} </th>
           <th colspan=4> {{item.lnkt_phonenumber}}</th>
@@ -323,14 +323,24 @@
         <tr>
           <td>
             <div class="columns is-multiline">
-              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column">
+              <div v-for="item,index in dataForm.getAllImpactedItem" :key="index" class="column is-12">
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
                     <div class="content">
                       <p>Type : {{item.lnkt_impacttype}}</p>
-                      <ul>
-                        <li v-for="subitem,index in item.lnkt_impact_item" :key="index"> {{subitem.lnkt_name}}</li>
-                      </ul>
+                      <div class="columns is-multiline">
+                        <div v-for="subitem,index in item.lnkt_impact_item" :key="index" class="column is-3">
+                           <div   class="card" >
+                        <div class="card-content">
+                          {{subitem.lnkt_name}}
+                        </div>
+                      </div>
+                        </div>
+                      </div>
+                     
+                      <!-- <ul>
+                        <li> </li>
+                      </ul> -->
                     </div>
                   </div>
                 </div>
@@ -342,7 +352,7 @@
       </table>
     </div>
 
-    <div v-show="this.picLength > 5" class="pagebreak">
+    <div v-show="this.picLength > 3" class="pagebreak">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
         <tr>
           <td colspan=10>
