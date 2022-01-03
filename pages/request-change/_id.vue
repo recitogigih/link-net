@@ -327,7 +327,7 @@
                 <div class="card">
                   <div class="card-content" style="padding:10px;">
                     <div class="content">
-                      <p>Type : {{item.lnkt_impacttype}}</p>
+                      <p><b>Type : {{item.lnkt_impacttype}}</b></p>
                       <div class="columns is-multiline">
                         <div v-for="subitem,index in item.lnkt_impact_item" :key="index" class="column is-3">
                            <div   class="card" >
