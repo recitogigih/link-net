@@ -59,19 +59,19 @@
         <tr>
           <th colspan=9>
             <label class="checkbox">
-              <input v-model="this.noCustImpact" type="checkbox">
+              <input v-model="this.noCustImpact" type="checkbox" disabled>
               No Customer Impact
             </label>
           </th>
           <th colspan=4> <label class="checkbox">
-              <input v-model="dataForm.lnkt_corporateinternet" type="checkbox">
+              <input v-model="dataForm.lnkt_corporateinternet" type="checkbox" disabled>
               Corporate Internet
             </label> </th>
         </tr>
         <tr>
           <th colspan=4>
             <label class="checkbox">
-              <input v-model="dataForm.lnkt_fastnetpackages" type="checkbox">
+              <input v-model="dataForm.lnkt_fastnetpackages" type="checkbox" disabled>
               Fastnet Packages :
             </label>
           </th>
@@ -86,27 +86,27 @@
 
 
           <th colspan=4> <label class="checkbox">
-              <input v-model="dataForm.lnkt_corporatempls" type="checkbox">
+              <input v-model="dataForm.lnkt_corporatempls" type="checkbox" disabled>
               Corporate MPLS / LC
             </label> </th>
         </tr>
         <tr>
           <th colspan=4>
             <label class="checkbox">
-              <input v-model="dataForm.lnkt_homecable" type="checkbox">
+              <input v-model="dataForm.lnkt_homecable" type="checkbox" disabled>
               Home Cable :
             </label>
           </th>
           <th colspan=5> </th>
           <th colspan=4> <label class="checkbox">
-              <input v-model="dataForm.lnkt_vod" type="checkbox">
+              <input v-model="dataForm.lnkt_vod" type="checkbox" disabled>
               VOD
             </label> </th>
         </tr>
         <tr>
           <th colspan=4>
             <label class="checkbox">
-              <input v-model="dataForm.lnkt_tvchannel" type="checkbox">
+              <input v-model="dataForm.lnkt_tvchannel" type="checkbox" disabled>
               TV Channel :
             </label> <br>
 
@@ -120,39 +120,39 @@
             </div>
           </th>
           <th colspan=4> <label class="checkbox">
-              <input v-model="dataForm.lnkt_mailservices" type="checkbox">
+              <input v-model="dataForm.lnkt_mailservices" type="checkbox" disabled>
               Mail / SMTP Services
             </label> </th>
         </tr>
         <tr>
           <th colspan="1"> <label class="checkbox ml-6">
-              <input v-model="dataForm.lnkt_analog" type="checkbox">
+              <input v-model="dataForm.lnkt_analog" type="checkbox" disabled>
               Analog
             </label></th>
           <th colspan="1">
             <label class="checkbox  ml-2">
-              <input v-model="dataForm.lnkt_digital" type="checkbox">
+              <input v-model="dataForm.lnkt_digital" type="checkbox" disabled>
               Digital
             </label>
           </th>
           <th colspan="1">
 
             <label class="checkbox  ml-2">
-              <input v-model="dataForm.lnkt_sd" type="checkbox">
+              <input v-model="dataForm.lnkt_sd" type="checkbox" disabled>
               SD
             </label>
           </th>
           <th colspan="1">
 
             <label class="checkbox  ml-2">
-              <input v-model="dataForm.lnkt_hd" type="checkbox">
+              <input v-model="dataForm.lnkt_hd" type="checkbox" disabled>
               HD
             </label>
           </th>
 
           <th colspan="4">
             <label class="checkbox">
-              <input v-model="dataForm.lnkt_otherproduct" type="checkbox">
+              <input v-model="dataForm.lnkt_otherproduct" type="checkbox" disabled>
               Others: All Fastnet Internet service
             </label>
           </th>
@@ -207,29 +207,29 @@
         </tr>
         <tr>
           <th colspan=7> <label class="checkbox">
-              <input v-model="dataForm.lnkt_contingencyplan" type="checkbox">
+              <input v-model="dataForm.lnkt_contingencyplan" type="checkbox" disabled>
               Contingency Plan / Roll Back Plan
             </label></th>
           <th colspan=6> <label class="checkbox">
-              <input v-model="dataForm.lnkt_verificationmethods" type="checkbox">
+              <input v-model="dataForm.lnkt_verificationmethods" type="checkbox" disabled>
               Verification methods
             </label> </th>
         </tr>
 
         <tr>
           <th colspan=7> <label class="checkbox">
-              <input v-model="dataForm.lnkt_approvalcorporate" type="checkbox">
+              <input v-model="dataForm.lnkt_approvalcorporate" type="checkbox" disabled>
               Approval from Corporate Customer
             </label></th>
           <th colspan=6> <label class="checkbox">
-              <input v-model="dataForm.lnkt_supportingdoc" type="checkbox">
+              <input v-model="dataForm.lnkt_supportingdoc" type="checkbox" disabled>
               Supporting Documents:
             </label> </th>
         </tr>
 
         <tr>
           <th colspan=7> <label class="checkbox">
-              <input v-model="dataForm.lnkt_approvalwp" type="checkbox">
+              <input v-model="dataForm.lnkt_approvalwp" type="checkbox" disabled>
               Approval or WP from Axis / NTS
             </label></th>
           <th colspan=6> </th>
