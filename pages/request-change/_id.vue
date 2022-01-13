@@ -4,9 +4,9 @@
       <thead>
         <tr>
           <th colspan=3 class="has-background-lightblue">Category</th>
-          <th colspan=4 class="has-text-info">Improvement</th>
+          <th colspan=4 class="has-text-info">{{dataForm.lnkt_maintenancecategorytext}}</th>
           <th colspan=3 class="has-background-lightblue">Type</th>
-          <th colspan=3 class="has-text-info">Activation</th>
+          <th colspan=3 class="has-text-info">{{dataForm.lnkt_maintenancetypetext}}</th>
         </tr>
       </thead>
       <tbody>
