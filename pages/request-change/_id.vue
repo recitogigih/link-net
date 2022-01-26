@@ -330,14 +330,14 @@
                       <p><b>Type : {{item.lnkt_impacttype}}</b></p>
                       <div class="columns is-multiline">
                         <div v-for="subitem,index in item.lnkt_impact_item" :key="index" class="column is-3">
-                           <div   class="card" >
-                        <div class="card-content">
-                          {{subitem.lnkt_name}}
+                          <div class="card">
+                            <div class="card-content">
+                              {{subitem.lnkt_name}}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                        </div>
-                      </div>
-                     
+
                       <!-- <ul>
                         <li> </li>
                       </ul> -->
@@ -388,7 +388,7 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="content">
-                     {{index + 1}}. {{item.lnkt_name}}
+                      {{index + 1}}. {{item.lnkt_name}}
                     </div>
                   </div>
                 </div>
@@ -399,7 +399,7 @@
       </table>
     </div>
 
-     <div v-show="this.tvchannelItemLength > 3" class="pagebreak">
+    <div v-show="this.tvchannelItemLength > 3" class="pagebreak">
       <table class="table is-bordered is-fullwidth mt-6 mb-6">
         <tr>
           <td colspan=10>
@@ -413,7 +413,7 @@
                 <div class="card">
                   <div class="card-content">
                     <div class="content">
-                     {{index + 1}}. {{item.lnkt_name}}
+                      {{index + 1}}. {{item.lnkt_name}}
                     </div>
                   </div>
                 </div>
@@ -439,7 +439,7 @@
         picLength: '',
         noCustImpact: '',
         fastnetPackageLength: '',
-        tvchannelItemLength:''
+        tvchannelItemLength: ''
       }
     },
     async mounted() {
@@ -492,6 +492,11 @@
 </script>
 
 <style>
+  body,
+  html {
+    font-size: 5px !important;
+  }
+
   .has-background-lightblue {
     background: #d6fefe
   }
@@ -514,11 +519,26 @@
   }
 
   @media print {
+
+    body,
+    html {
+      font-size: 5px !important;
+    }
+
+    .table td,
+    .table th {
+      border: 1px solid #dbdbdb;
+      border-width: 0 0 1px;
+      padding: 0.5em 0.75em;
+      vertical-align: top;
+      font-size: 5px;
+    }
+
     .pagebreak {
       page-break-before: always;
     }
 
- 
+
   }
 
 </style>
