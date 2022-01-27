@@ -430,6 +430,11 @@
 
 <script>
   export default {
+    head(){
+      return{
+         title: 'RCF Form - ' + this.dataForm.lnkt_name
+      }
+    },
     data() {
       return {
         dataForm: [],
@@ -439,7 +444,7 @@
         picLength: '',
         noCustImpact: '',
         fastnetPackageLength: '',
-        tvchannelItemLength: ''
+        tvchannelItemLength: '',
       }
     },
     async mounted() {
@@ -531,7 +536,7 @@
       border-width: 0 0 1px;
       padding: 0.5em 0.75em;
       vertical-align: top;
-      font-size: 5px;
+      font-size: 7px;
     }
 
     .pagebreak {
